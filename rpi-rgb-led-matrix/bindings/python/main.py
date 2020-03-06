@@ -16,19 +16,17 @@ class imageSelector():
     def __init__(self):
         
         self.string = ''
-        self.stop_thread = False
         self.image_selector()
 
 
-            
-            
 
     def image_selector(self):
+
         while(True):
 
             self.string = input("What picture to display: ")
-        #    self.input_by_file()
-          #  print(self.string)
+           # self.input_by_file()
+           # print(self.string)
             if self.check_if_base64():
                 print("base64")
                 self.base64_to_image()

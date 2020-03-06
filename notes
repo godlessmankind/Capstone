@@ -1,0 +1,6 @@
+Edit /etc/systemd/system/dbus-org.bluez.service and add '-C' after 'bluetoothd'. Reboot.
+
+sudo sdptool add SP
+
+
+sudo hciconfig hciX piscan
