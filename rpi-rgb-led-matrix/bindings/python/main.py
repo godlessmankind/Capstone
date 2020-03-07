@@ -6,6 +6,7 @@ import base64
 import binascii
 import re
 
+import concurrent.futures
 
 from work.image_viewer_mod import image_show_API 
 import work.bluetooth_server as bluetooth_server
@@ -16,8 +17,9 @@ class imageSelector():
     def __init__(self):
         
         self.string = ''
-        self.image_selector()
         self.bt = bluetooth_server.bt_server()
+        self.image_selector()
+        
 
     def image_selector(self):
         
@@ -26,9 +28,14 @@ class imageSelector():
            # self.string = input("What picture to display: ")
            # self.input_by_file()
            # print(self.string)
-            self.string = self.bt.recive_data()
-            #self.string = threading.Thread(target=self.bt.recive_data(), daemon=True)
-            
+           # self.string = self.bt.recive_data()
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+                f1 = executor.submit(self.bt.recive_data())
+                print(f1.result())
+                self.string = f1.result()
+
+
+            print(type(self.string))
             if self.check_if_base64():
                 print("base64")
                 self.base64_to_image()

@@ -31,11 +31,16 @@ class bt_server():
     def recive_data(self):
         try:
             while True:
-                data = self.client_sock.recv(1024)
-                if not data:
+                recv_data = self.client_sock.recv(1024)
+                if not recv_data:
                     break
+                data = recv_data.decode('utf-8')
                 print("Received", data)
+                
+                print(type(data))
+
                 return data
+
         except OSError:
             pass
 
@@ -45,5 +50,3 @@ class bt_server():
         self.server_sock.close()
         print("All done.")
 
-
-bt = bt_server()
