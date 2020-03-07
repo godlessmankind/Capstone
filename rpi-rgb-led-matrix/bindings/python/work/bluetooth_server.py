@@ -36,8 +36,6 @@ class bt_server():
                     break
                 data = recv_data.decode('utf-8')
                 print("Received", data)
-                
-                print(type(data))
 
                 return data
 
