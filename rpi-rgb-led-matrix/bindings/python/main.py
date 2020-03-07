@@ -28,13 +28,12 @@ class imageSelector():
         while(True):
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
                     f1 = executor.submit(self.bt.recive_data)
-                    print(f1.result())
                     self.string = f1.result()
            # self.string = input("What picture to display: ")
            # self.input_by_file()
            # print(self.string)
-           # self.string = self.bt.recive_data()
 
+            
             if self.check_if_base64():
                 print("base64")
                 self.base64_to_image()
