@@ -8,7 +8,7 @@ import re
 
 
 from work.image_viewer_mod import image_show_API 
-
+import work.bluetooth_server as bluetooth_server
 
 
 class imageSelector():
@@ -17,16 +17,18 @@ class imageSelector():
         
         self.string = ''
         self.image_selector()
-
-
+        self.bt = bluetooth_server.bt_server()
 
     def image_selector(self):
-
+        
         while(True):
 
-            self.string = input("What picture to display: ")
+           # self.string = input("What picture to display: ")
            # self.input_by_file()
            # print(self.string)
+            self.string = self.bt.recive_data()
+            #self.string = threading.Thread(target=self.bt.recive_data(), daemon=True)
+            
             if self.check_if_base64():
                 print("base64")
                 self.base64_to_image()
