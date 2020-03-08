@@ -1,4 +1,4 @@
-
+#!~/capstone/venv_capstone/bin/python
 import time
 import sys
 
@@ -31,5 +31,3 @@ def image_show_API(image_file,stop):
 
     except KeyboardInterrupt:
         sys.exit(0)
-
-#!/usr/bin/env python

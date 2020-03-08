@@ -1,5 +1,5 @@
+#!~/capstone/venv_capstone/bin/python
 import bluetooth
-
 
 class bt_server():
 
@@ -47,4 +47,3 @@ class bt_server():
         self.client_sock.close()
         self.server_sock.close()
         print("All done.")
-
