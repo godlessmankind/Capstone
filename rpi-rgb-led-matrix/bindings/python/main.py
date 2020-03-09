@@ -19,19 +19,23 @@ class imageSelector():
 
     def __init__(self):
         
+        self.__correct_folder()
         self.string = ''
         self.bt = bluetooth_server.bt_server()
         self.image_selector()
         
 
-    def image_selector(self):
-        
 
-        
+
+    def image_selector(self):
+                
         while(True):
-            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                    f1 = executor.submit(self.bt.recive_data)
-                    self.string = f1.result()
+
+            executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+            f1 = executor.submit(self.bt.recive_data)
+            self.string = f1.result()
+
+
            # self.string = input("What picture to display: ")
            # self.input_by_file()
            # print(self.string)
@@ -42,28 +46,27 @@ class imageSelector():
                 self.base64_to_image()
                 self.string = 'tempImage'
 
-            if os.path.isfile('assets/' + self.string + '.jpg'):
+            if os.path.isfile(f'assets/{self.string}.jpg'):
                 stop_thread = True
                 time.sleep(0.1)
                 stop_thread = False        
-                arg = "assets/" + self.string + ".jpg"
+                arg = f'assets/{self.string}.jpg'
                 
-                # with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                #     f2 = executor.submit(image_show_API,(arg,lambda : stop_thread))
-
                 
-                self.thread = threading.Thread(target=image_show_API, args=(arg,lambda : stop_thread),daemon=True)
-                self.thread.start()
+                thread = threading.Thread(target=image_show_API, args=(arg,lambda : stop_thread),daemon=True)
+                thread.start()
                 
 
 
             elif(self.string == "cancel"):
                 stop_thread = True
-                self.thread.join()
+                thread.join()
+                executor.shutdown()
 
             elif(self.string == "quit"):
                 stop_thread = True
-                self.thread.join()
+                thread.join()
+                executor.shutdown()
                 break
 
             else:
@@ -84,5 +87,14 @@ class imageSelector():
                 self.string = file_string.read()
 
 
+    def __correct_folder(self):
+        PRJ_FLDR = os.path.dirname(os.path.realpath(__file__))
+        if os.getcwd() != PRJ_FLDR:
+            os.chdir(PRJ_FLDR)
 
-img = imageSelector()
+
+def main():
+     imageSelector()
+
+if __name__ == '__main__':
+    main()       
