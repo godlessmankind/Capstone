@@ -80,8 +80,6 @@ class imageSelector():
         return re.search("==$", self.string)
 
     def input_by_file(self):
-            # with open("assets/string.txt", "w") as file_string:
-            #     file_string.write(input("What picture to display: "))
             input("base 64 image")
             with open("assets/string.txt", "r") as file_string:
                 self.string = file_string.read()

@@ -1,7 +1,7 @@
 import os
 
 
-PRJ_FLDR = os.path.dirname(os.path.realpath(__file__))
+
 
 print(os.getcwd())
 
@@ -11,7 +11,7 @@ if os.getcwd() != PRJ_FLDR:
     
 else:
     print("already in project folder")
-    
+
 # print("project folder " + PRJ_FLDR)
 # apptemplates = os.path.abspath(os.path.join(PRJ_FLDR))
 # print('apptemplates= '+ apptemplates)
